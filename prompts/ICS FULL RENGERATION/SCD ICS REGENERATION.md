@@ -1,168 +1,152 @@
 You are acting as a deterministic calendar-system compiler, not a creative writer.
 
 Your task is to REGENERATE a Google-compatible ICS calendar file for my SCAD semester.
+
 This is a REGENERATION task, not a redesign.
 
-You MUST proceed slowly, line-by-line, event-by-event, and verify every invariant before producing output.
-If any required input is missing, STOP and ask for it before continuing.
+You must proceed slowly, line-by-line, event-by-event, validating every invariant before output.
+If required inputs are missing, STOP and ask before continuing.
 
-========================
-CRITICAL OPERATING RULES
-========================
 
-1. DO NOT SKIM.
-   You must process each VEVENT independently and completely.
-   Assume that missing one line will break my system.
+CRITICAL OPERATING RULES (DO NOT VIOLATE)
 
-2. PRESERVE ALL UID VALUES EXACTLY.
-   UIDs are immutable identifiers.
-   NEVER generate new UIDs unless I explicitly instruct you to.
+1. DO NOT SKIM
+   - Every VEVENT must be processed independently.
+   - Missing one line can break Google Calendar.
 
-3. UPDATE VERSIONING CORRECTLY.
+2. UIDS ARE IMMUTABLE
+   - Preserve all UID values exactly.
+   - Never generate, delete, or change a UID unless explicitly instructed.
+
+3. VERSIONING DISCIPLINE
    For every VEVENT you modify:
    - Increment SEQUENCE by +1 (or set to 1 if missing)
-   - Update LAST-MODIFIED to current UTC time
-   - Update DTSTAMP to current UTC time
+   - Update LAST-MODIFIED to current UTC
+   - Update DTSTAMP to current UTC
 
-4. GOOGLE CALENDAR COMPATIBILITY IS NON-NEGOTIABLE.
-   The output ICS MUST:
-   - Import successfully into a blank Google Calendar
-   - Work as a subscribed calendar feed
-   - Use strict CRLF line endings (\\r\\n)
-   - Have NO blank lines
+4. GOOGLE CALENDAR COMPATIBILITY IS NON-NEGOTIABLE
+   Output ICS must:
+   - Import into a blank Google Calendar
+   - Work as a subscribed feed
+   - Use strict CRLF (\r\n) line endings
+   - Contain NO blank lines
    - Fold lines at 75 characters with a single leading space
-   - Contain no CRCRLF or extra whitespace
-   - Use a single VCALENDAR block
+   - Use one VCALENDAR block only
+   - Contain no stray whitespace or malformed folds
 
-5. TECHNICAL ICS REQUIREMENTS (DO NOT VIOLATE):
-   - Keep existing DTSTART / DTEND values unchanged unless instructed
-   - Keep existing timezone handling unchanged
-   - Preserve VALARM, URL, VTIMEZONE, and X-properties exactly as in the source file
+5. PRESERVE NON-DESCRIPTION DATA
+   - Do NOT change DTSTART / DTEND unless instructed
+   - Preserve timezones, VTIMEZONE, VALARM, URL, and all X- properties
    - Do not reorder unrelated properties
 
-========================
-EVENT TEMPLATE CONTRACT
-========================
 
-EVERY Study / Studio / Admin / Weekend Flex / Weekly Reflection block MUST contain
-ALL of the following sections in its DESCRIPTION, in THIS EXACT ORDER,
-with NO EMPTY SECTIONS:
+EVENT DESCRIPTION TEMPLATE CONTRACT (CURRENT)
 
---------------------------------
-SYSTEM METADATA
---------------------------------
-- Course
-- Week number
-- Block ID (UID)
-- Intent (study / studio / quiz / admin / reflection)
-- Dependencies (what this block relies on)
-- Design contract note (this block is regenerated from ICS; edit rules)
+For every Study / Studio / Admin / Weekend Flex / Weekly Reflection block, DESCRIPTION must contain ALL sections below, in this exact order, with NO EMPTY SECTIONS:
 
---------------------------------
-PRIMARY DOCUMENT LINKS
---------------------------------
-- Anchor document link(s)
-- Working document instruction or link
 
---------------------------------
-WHAT YOU’RE DOING IN THIS BLOCK
---------------------------------
-- Lesson/Topic: MUST be fully specific (NO placeholders)
-  - Include PREP vs REVIEW when applicable
-  - Tie explicitly to syllabus topics, readings, exercises, or due items
-  - This line MUST ALWAYS EXIST and MUST NEVER BE EMPTY
+1) OPEN TEMPLATE (FIRST LINE — REQUIRED)
+   - A raw, clickable URL to the GitHub Pages DOCX template
+   - MUST be the very first line of DESCRIPTION
+   - Example:
+     https://jenniferyaar.github.io/SCAD-Winter-Calendar/templates/week01/CTXT_122/<UID>.docx
 
---------------------------------
-TODAY’S MICRO-TASKS
---------------------------------
-- 3–5 concrete, actionable steps
-- Written as “do this now” actions
-- No generic language
 
---------------------------------
-ADHD-FRIENDLY EXECUTION PLAN
---------------------------------
-- Setup (5 min)
-- Sprint 1 (25 min)
-- Break
-- Sprint 2 (25 min)
-- Close-out
+2) SYSTEM METADATA
+   - Course
+   - Week number
+   - Block ID (UID)
+   - Intent (study / studio / quiz / admin / reflection)
+   - Dependencies
+   - Design contract note
 
---------------------------------
-DELIVERABLE + DEFINITION OF DONE
---------------------------------
-- Explicit artifact(s)
-- Checklist format
-- Clear stop condition
 
---------------------------------
-HOW TO USE CHATGPT
---------------------------------
-- Clarify prompt
-- Generate options prompt
-- Quality/completeness check prompt
-- Next-step planning prompt
+3) PRIMARY DOCUMENT LINKS
+   - Anchor document(s)
+   - Working document instruction (DOCX/MD already linked above)
 
---------------------------------
-CONTINGENCIES / EXTRA HELP ALIGNMENT
---------------------------------
-- What to do if stuck after 10 minutes
-- What to bring to help sessions
-- Hard stop rule
 
-========================
+4) WHAT YOU’RE DOING IN THIS BLOCK
+   - Lesson / Topic MUST be fully specific
+   - Explicitly tied to syllabus, readings, exercises, and due items
+   - PREP vs REVIEW must be explicit when applicable
+   - This section must NEVER be empty
+
+
+5) TODAY’S MICRO-TASKS
+   - 3–5 concrete, actionable steps
+   - Written as immediate actions
+   - No generic language
+   - Must align deterministically with deliverables
+
+
+6) ADHD-FRIENDLY EXECUTION PLAN
+   - Setup (~5 min)
+   - Sprint 1 (~25 min)
+   - Break
+   - Sprint 2 (~25 min)
+   - Close-out
+
+
+7) DELIVERABLE + DEFINITION OF DONE
+   - Explicit artifacts
+   - Checklist format
+   - Clear stop condition
+
+
+8) HOW TO USE CHATGPT
+   - Clarify prompt
+   - Generate options prompt
+   - Quality/completeness check
+   - Next-step planning prompt
+
+
+9) CONTINGENCIES / EXTRA HELP ALIGNMENT
+   - What to do if stuck after ~10 minutes
+   - What to bring to help sessions
+   - Hard stop rule
+
+
 CONTENT SOURCING RULES
-========================
 
-Lesson/Topic content MUST be derived from:
-- The provided syllabus PDFs
-- Any pasted syllabus updates
-- Class meeting schedules
-- Assignment and due-date information
+- Lesson/Topic content MUST come from:
+  - syllabus PDFs
+  - pasted syllabus updates
+  - class schedules
+  - assignment and due-date info
+- DO NOT invent topics
+- If specificity cannot be determined, STOP AND ASK
 
-DO NOT invent topics.
-DO NOT leave placeholders.
-If a topic cannot be determined, STOP and ask.
 
-========================
-PROCESS YOU MUST FOLLOW
-========================
+REQUIRED PROCESS
 
-1. Parse the provided ICS file.
-2. Build a list of ALL VEVENT UIDs.
-3. Identify which VEVENTs are work blocks vs class meetings.
-4. For EACH work block:
-   a. Validate that all template sections exist.
-   b. Validate that WHAT YOU’RE DOING IN THIS BLOCK has content.
-   c. Insert or correct content as needed.
-5. Preserve all non-DESCRIPTION properties.
-6. Apply SEQUENCE / LAST-MODIFIED / DTSTAMP updates.
-7. Perform a self-check against this prompt.
-8. ONLY THEN produce the final ICS file.
+1. Parse the provided ICS file
+2. Enumerate all VEVENT UIDs
+3. Identify work blocks vs class meetings
+4. For each work block:
+   - Validate template completeness
+   - Validate non-empty Lesson/Topic
+5. Preserve all non-DESCRIPTION properties
+6. Apply versioning updates
+7. Perform internal self-validation
+8. Output one complete ICS file
 
-========================
+
 SELF-VALIDATION (MANDATORY)
-========================
 
-Before outputting the ICS, you MUST internally verify:
-
-- No DESCRIPTION section is missing content
-- No “WHAT YOU’RE DOING IN THIS BLOCK” is empty
-- All Lesson/Topic lines are specific
+Before output, confirm:
+- No section is empty
+- Lesson/Topic is specific everywhere
 - No UIDs changed
 - All modified events have updated SEQUENCE + timestamps
-- File has no blank lines
-- Line folding is correct
-- CRLF only
+- No blank lines
+- Proper folding and CRLF
 
-If any check fails, FIX IT BEFORE OUTPUT.
 
-========================
 OUTPUT RULES
-========================
 
 - Output ONE complete ICS file
-- Do NOT summarize
-- Do NOT explain
-- Do NOT ask questions after output
-- If you cannot meet 100% of this contract, STOP and ask before proceeding
+- No explanations
+- No summaries
+- No commentary
+- If 100% compliance is not possible, STOP
